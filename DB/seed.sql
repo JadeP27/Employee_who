@@ -1,4 +1,4 @@
-use employees;
+use employee;
 
 INSERT INTO department
     (name)
@@ -13,7 +13,7 @@ INSERT INTO role
 VALUES
     ('Design Lead', 100000, 1),
     ('Designer', 80000, 1),
-    ('Creative Director', 150000, 2,
+    ('Creative Director', 150000, 2),
     ('Model', 60000, 2),
     ('Marketing Director', 120000, 3),
     ('Marketing Lead', 90000, 3),
@@ -21,14 +21,15 @@ VALUES
     ('Manager', 90000, 4),
     ('Administrative Assistant', 60000, 4);
 
-INSERT INTO employee
+INSERT INTO people
     (first_name, last_name, role_id, manager_id)
 VALUES
-    ('Alexander', 'McQueen', 1, NULL),
-    ('Christian', 'Louboutin', 2, 1),
-    ('Christian', 'Dior', 3, NULL),
-    ('Ralph', 'Lauren', 4, 2),
-    ('Robin', 'Fenty', 5, 3),
-    ('Vivian', 'Westwood', 6, NULL),
-    ('Louis', 'Vuitton', 7, NULL),
-    ('Tom', 'Ford', 8, 4);
+    ('Alexander', 'McQueen', 1, 134),
+    ('Christian', 'Louboutin', 3, NULL),
+    ('Christian', 'Dior', 4, 135),
+    ('Ralph', 'Lauren', 5, NULL),
+    ('Saint', 'Laurent', 6, 136),
+    ('Robin', 'Fenty', 7, NULL),
+    ('Vivian', 'Westwood', 8, 137),
+    ('Louis', 'Vuitton', 9, 138),
+    ('Tom', 'Ford', 10, NULL);

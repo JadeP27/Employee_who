@@ -1,13 +1,88 @@
+var mysql = require("mysql");
+
+var connection = mysql.createConnection({
+  host: "localhost",
+
+  // Your port; if not 3306
+  port: 3306,
+
+  // Your username
+  user: "root",
+
+  // Your password
+  password: "Bootcamp2020",
+  database: "employee_db"
+});
+
+// case "Update employee roles":
+// editEmployeeRoles();
+// break;
+
+// case "View employees by manager":
+// managerView();
+// break;
+
+
+connection.connect(function(err) {
+  if (err) throw err;
+  console.log("connected as id " + connection.threadId);
+  connection.end();
+});
+
 //functions that connect to the mysql database
 function addDept() {
-    let query = "SELECT * FROM ";
-    connection.query(query, { artist: answer.artist }, function(err, res) {
-        for (var i = 0; i < res.length; i++) {
-        console.log("Position: " + res[i].position + " || Song: " + res[i].song + " || Year: " + res[i].year);
-        }
+    connection.query("INSERT INTO department SET ?",
+    {
+      department: answer.department
+    },
+    function(err, res) {
+      if (err) throw err;
+      console.log(res.affectedRows + " department inserted!\n");
         runPrompts();
     });
-    
+  }
+  function addRole() {
+    connection.query("INSERT INTO role SET ?",
+    {
+      role: answer.role
+    },
+    function(err, res) {
+      if (err) throw err;
+      console.log(res.affectedRows + " role inserted!\n");
+        runPrompts();
+    });
+  }
+  function addEmployee() {
+    connection.query("INSERT INTO people SET ?",
+    {
+      people: answer.people
+    },
+    function(err, res) {
+      if (err) throw err;
+      console.log(res.affectedRows + " people inserted!\n");
+        runPrompts();
+    });
+  }
+  function viewDept() {
+    let query = "SELECT * FROM department";
+    connection.query(query, { department: answer.department }, function(err, res) {
+      if (err) throw err;
+        runPrompts();
+    });
+  }
+  function viewRole() {
+    let query = "SELECT * FROM role";
+    connection.query(query, { role: answer.role }, function(err, res) {
+      if (err) throw err;
+        runPrompts();
+    });
+  }
+  function viewEmployee() {
+    let query = "SELECT * FROM people";
+    connection.query(query, { employee: answer.people }, function(err, res) {
+      if (err) throw err;
+        runPrompts();
+    });
   }
   
   function multiSearch() {
@@ -20,51 +95,9 @@ function addDept() {
     });
   }
   
-  function rangeSearch() {
-    inquirer
-      .prompt([
-        {
-          name: "start",
-          type: "input",
-          message: "Enter starting position: ",
-          validate: function(value) {
-            if (isNaN(value) === false) {
-              return true;
-            }
-            return false;
-          }
-        },
-        {
-          name: "end",
-          type: "input",
-          message: "Enter ending position: ",
-          validate: function(value) {
-            if (isNaN(value) === false) {
-              return true;
-            }
-            return false;
-          }
-        }
-      ])
-      .then(function(answer) {
-        var query = "SELECT position,song,artist,year FROM top5000 WHERE position BETWEEN ? AND ?";
-        connection.query(query, [answer.start, answer.end], function(err, res) {
-          for (var i = 0; i < res.length; i++) {
-            console.log(
-              "Position: " +
-                res[i].position +
-                " || Song: " +
-                res[i].song +
-                " || Artist: " +
-                res[i].artist +
-                " || Year: " +
-                res[i].year
-            );
-          }
-          runSearch();
-        });
-      });
-  }
+  
+  
+
 
 
 
