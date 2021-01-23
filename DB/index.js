@@ -14,15 +14,6 @@ var connection = mysql.createConnection({
   database: "employee_db"
 });
 
-// case "Update employee roles":
-// editEmployeeRoles();
-// break;
-
-// case "View employees by manager":
-// managerView();
-// break;
-
-
 connection.connect(function(err) {
   if (err) throw err;
   console.log("connected as id " + connection.threadId);
