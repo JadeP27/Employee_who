@@ -1,4 +1,4 @@
-const node = require("node");
+//const node = require("node");
 const mysql = require("mysql");
 const inquirer = require("inquirer");
 
@@ -17,9 +17,78 @@ var connection = mysql.createConnection({
 connection.connect(function(err) {
   if (err) {
     console.error("error connecting");
-    runPrompts();
   }
+  runPrompts();
 });
+
+//functions that connect to the mysql database
+function addDept() {
+  connection.query("INSERT INTO department SET ?",
+  {
+    department: answer.department
+  },
+  function(err, res) {
+    if (err) throw err;
+    console.log(res.affectedRows + " department inserted!\n");
+      runPrompts();
+  });
+}
+function addRole() {
+  connection.query("INSERT INTO role SET ?",
+  {
+    role: answer.role
+  },
+  function(err, res) {
+    if (err) throw err;
+    console.log(res.affectedRows + " role inserted!\n");
+      runPrompts();
+  });
+}
+function addEmployee() {
+  connection.query("INSERT INTO people SET ?",
+  {
+    people: answer.people
+  },
+  function(err, res) {
+    if (err) throw err;
+    console.log(res.affectedRows + " people inserted!\n");
+      runPrompts();
+  });
+}
+function viewDepts() {
+  console.log("viewDepartments")
+  let query = "SELECT * FROM department";
+  connection.query(query, function(err, res) {
+    if (err) throw err;
+    console.log(res)
+      // runPrompts();
+  });
+}
+function viewRoles() {
+  let query = "SELECT * FROM role";
+  connection.query(query, { role: answer.role }, function(err, res) {
+    if (err) throw err;
+      runPrompts();
+  });
+}
+function viewEmployees() {
+  let query = "SELECT * FROM people";
+  connection.query(query, { employee: answer.people }, function(err, res) {
+    if (err) throw err;
+      runPrompts();
+  });
+}
+
+function multiSearches() {
+  var query = "SELECT artist FROM top5000 GROUP BY artist HAVING count(*) > 1";
+  connection.query(query, function(err, res) {
+    for (var i = 0; i < res.length; i++) {
+      console.log(res[i].artist);
+    }
+    runPrompts();
+  });
+}
+
 
 //create the function to run the prompts via inquirer
 function runPrompts() {
@@ -27,7 +96,7 @@ function runPrompts() {
       .prompt({
         name: "questions",
         title: "input",
-        message: "Welcome to Employee Database, what would you like to do?",
+        type: "list",
         choices: [
           "Add department",
           "Add role",
@@ -37,10 +106,12 @@ function runPrompts() {
           "View all employees",
           "Update employee roles",
           "View employees by manager",
-        ]
+        ],
+        message: "Welcome to Employee Database, what would you like to do?",
+        
       })
       .then(function(answer) {
-        switch (answer.action) {
+        switch (answer.questions) {
         case "Add department":
           addDept();
           break;
@@ -66,3 +137,5 @@ function runPrompts() {
         }
       });
   }
+
+  // runPrompts();
