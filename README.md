@@ -18,4 +18,8 @@ This application utilizes:
 ### Installation
 Node Installation required
 MYSQL Installation required
+MYSQL Workbench installation required
 Inquirer also required to run prompts
+
+### Usage
+Start in commandline by typing - npm start after the initial selection is made simply click the down arrow to return back to the application questions.

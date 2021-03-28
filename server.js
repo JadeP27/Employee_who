@@ -30,8 +30,8 @@ function addDept() {
   function(err, res) {
     if (err) throw err;
     console.log(res.affectedRows + " department inserted!\n");
-      runPrompts();
   });
+  runPrompts()
 }
 function addRole() {
   connection.query("INSERT INTO role SET ?",
@@ -41,8 +41,8 @@ function addRole() {
   function(err, res) {
     if (err) throw err;
     console.log(res.affectedRows + " role inserted!\n");
-      runPrompts();
   });
+  runPrompts()
 }
 function addEmployee() {
   connection.query("INSERT INTO people SET ?",
@@ -52,43 +52,33 @@ function addEmployee() {
   function(err, res) {
     if (err) throw err;
     console.log(res.affectedRows + " people inserted!\n");
-      runPrompts();
   });
+  runPrompts()
 }
 function viewDepts() {
-  console.log("viewDepartments")
   let query = "SELECT * FROM department";
   connection.query(query, function(err, res) {
     if (err) throw err;
     console.log(res)
-      // runPrompts();
   });
+  runPrompts()
 }
 function viewRoles() {
   let query = "SELECT * FROM role";
-  connection.query(query, { role: answer.role }, function(err, res) {
+  connection.query(query, function(err, res) {
     if (err) throw err;
-      runPrompts();
+    console.log(res)
   });
+  runPrompts()
 }
 function viewEmployees() {
   let query = "SELECT * FROM people";
-  connection.query(query, { employee: answer.people }, function(err, res) {
-    if (err) throw err;
-      runPrompts();
-  });
-}
-
-function multiSearches() {
-  var query = "SELECT artist FROM top5000 GROUP BY artist HAVING count(*) > 1";
   connection.query(query, function(err, res) {
-    for (var i = 0; i < res.length; i++) {
-      console.log(res[i].artist);
-    }
-    runPrompts();
+    if (err) throw err;
+    console.log(res)
   });
+  runPrompts()
 }
-
 
 //create the function to run the prompts via inquirer
 function runPrompts() {
@@ -137,5 +127,3 @@ function runPrompts() {
         }
       });
   }
-
-  // runPrompts();
